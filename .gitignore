@@ -1,6 +1,7 @@
 node_modules/
 css/
 .idea/
+docs/
 
 package-lock.json
 *.iml

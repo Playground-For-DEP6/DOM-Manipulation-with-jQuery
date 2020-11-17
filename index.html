@@ -2,11 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, scale=1.0" name="viewport">
-    <title>DOM Assignment 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management System | DOM Manipulation with jQuery</title>
+
+    <!--link bootstrap -->
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--link fontawesome css-->
     <link href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+
+    <!--link jQuery scripts and css -->
+    <link rel="stylesheet" href="./node_modules/jquery-ui-dist/jquery-ui.min.css">
+    <script src="./node_modules/jquery-ui-dist/external/jquery/jquery.js"></script>
+    <script src="./node_modules/jquery-ui-dist/jquery-ui.js"></script>
+    
+    <!-- link custom css file -->
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
 <header class="container">
@@ -38,8 +48,8 @@
                 </div>
                 <hr>
                 <div class="form-group">
-                    <button class="btn btn-primary" id="btn-save">Save</button>
-                    <button class="btn btn-danger" id="btn-clear" type="reset">Clear</button>
+                    <button type="button" class="btn btn-primary" id="btn-save">Save</button>
+                    <button type="button" class="btn btn-danger" id="btn-clear">Clear</button>
                 </div>
             </form>
         </div>
@@ -84,8 +94,8 @@
     </div>
 </main>
 <footer>
-    Copyright &copy; 2020 IJSE
+    Copyright &copy; 2020 Dhanusha Perera
 </footer>
-<script src="js/customer-ctrl.js"></script>
+<script src="./js/customer-ctrl.js"></script>
 </body>
 </html>

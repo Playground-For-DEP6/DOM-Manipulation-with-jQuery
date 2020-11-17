@@ -73,7 +73,7 @@ function init() {
     tblCustomersElement = $('#tbl-customers');
     tBodyElement = $('#tbl-customers>tbody');
 
-    txtId.focus();
+    txtIdElement.focus();
 
     // display all the customers in the list
     displayAllCustomers();
@@ -84,10 +84,10 @@ function init() {
  *===============================================================================*/
 
 // Bind an event handler to btn save
-btnSave.click(insertCustomer());
+btnSave.click(insertCustomer);
 
-// Bind an event handler to btn save
-btnClear.click();
+// Bind an event handler to btn clear
+btnClear.click(clearFormFields);
 
 /*===============================================================================
  * Functions
@@ -149,8 +149,12 @@ for (var i = 0; i < customers.length; i++) {
     customers[i].printDetails();
 }
 
+displayAllCustomers();
 
 function insertCustomer() {
+
+    // alert("insert customer works!");
+
     if(validate()){
         /* validation is passed */
 
@@ -246,6 +250,11 @@ function clearFormFields() {
 
 function displayAllCustomers() {
 
+    // remove all the table rows if exists
+    for (var i = 0; i < $("#tbl-customers>tbody").children().length; i++) {
+        $("#tbl-customers>tbody").children().remove();
+    }
+
     if (customers.length > 0) {
 
         // remove the tfoot
@@ -269,6 +278,7 @@ function displayAllCustomers() {
         // add the tfoot
         $("#tbl-customers>tfoot").add();
     }
+
 
 
 }

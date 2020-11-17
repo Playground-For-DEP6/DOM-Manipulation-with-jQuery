@@ -128,9 +128,11 @@ main {
   height: 32px;
   background-image: url('../img/trash.png');
   background-size: contain;
+  z-index: 1;
 
   &:hover {
     background-image: url('../img/trash-hover.png');
+    z-index: 2;
   }
 }
 

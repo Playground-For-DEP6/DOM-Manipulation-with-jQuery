@@ -89,6 +89,7 @@ btnSave.click(insertCustomer);
 // Bind an event handler to btn clear
 btnClear.click(clearFormFields);
 
+
 /*===============================================================================
  * Functions
  *===============================================================================*/
@@ -135,21 +136,20 @@ Customer.prototype.printDetails = function () {
 }
 
 
-// sample data for testing purposes
-var c1 = new Customer(1, "Dhanusha", "Kelaniya");
-var c2 = new Customer(2, "Buddhika", "Colombo");
-var c3 = new Customer(3, "Sandaruwan", "Kiribathgoda");
-var c4 = new Customer(4, "Perera", "Gampaha");
+// // sample data for testing purposes
+// var c1 = new Customer(1, "Dhanusha", "Kelaniya");
+// var c2 = new Customer(2, "Buddhika", "Colombo");
+// var c3 = new Customer(3, "Sandaruwan", "Kiribathgoda");
+// var c4 = new Customer(4, "Perera", "Gampaha");
+//
+// // make the customer list using an array
+// customers.push(c1, c2, c3, c4);
+//
+// // print all customers for testing purposes
+// for (var i = 0; i < customers.length; i++) {
+//     customers[i].printDetails();
+// }
 
-// make the customer list using an array
-customers.push(c1, c2, c3, c4);
-
-// print all customers for testing purposes
-for (var i = 0; i < customers.length; i++) {
-    customers[i].printDetails();
-}
-
-displayAllCustomers();
 
 function insertCustomer() {
 
@@ -163,6 +163,8 @@ function insertCustomer() {
 
         // add new customer object to the customers list
         customers.push(newCustomerObject);
+        displayAllCustomers();
+        clearFormFields();
 
     } else {
         //validation failed
@@ -243,9 +245,9 @@ function validate() {
 
 
 function clearFormFields() {
-    txtIdElement.text('');
-    txtNameElement.text('');
-    txtAddressElement.text('');
+    txtIdElement.val('');
+    txtNameElement.val('');
+    txtAddressElement.val('');
 }
 
 function displayAllCustomers() {
@@ -274,6 +276,25 @@ function displayAllCustomers() {
             // append the table row to the tbody
             tBodyElement.append(tblRowElm);
         }
+
+        $("#tbl-customers>tbody").find("img").click(function () {
+            // remove that particular element from the table
+            $(this).parents("tr").remove();
+
+            var cusId = $($(this).parents("tr").children()[0]).text();
+            var index = customers.findIndex(function (c) {
+                return c.getId() ==  cusId;
+            });
+
+            // for testing purposes
+            console.log('index is: ' + index);
+
+            // delete the customer from the customer array
+            customers.splice(index,1);
+
+            // for testing purposes
+            console.log("customer list: " + customers);
+        });
     } else {
         // add the tfoot
         $("#tbl-customers>tfoot").add();

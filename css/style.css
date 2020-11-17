@@ -21,20 +21,16 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
  */
-
 /**
  * @author : Dhanusha Perera
  * @since : 17/11/2020
  **/
-
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 /*===============================================================================
  * Global
  *===============================================================================*/
-
 * {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 html {
@@ -44,64 +40,49 @@ html {
 /*===============================================================================
  * Header
  *===============================================================================*/
-
 header {
   padding-top: 20px;
-  border: {
-    bottom: 1px solid lightgray;
-  }
+  border-bottom: 1px solid lightgray;
 }
 
 /*===============================================================================
  * Main
  *===============================================================================*/
-
 main {
   margin-top: 50px;
-
-  .row > div:first-child {
-    border-right: 1px solid lightgray;
-  }
-
-  h3 {
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    margin-bottom: 20px;
-    background-color: rgb(251, 181, 52);
-  }
-
-  #tbl-customers {
-
-    thead tr {
-      background-color: lightgrey;
-
-      th {
-        border-bottom-color: #989898;
-      }
-    }
-
-    td {
-      vertical-align: middle;
-    }
-
-    th:first-child {
-      width: 75px;
-      text-align: center;
-    }
-
-    th:last-child {
-      position: relative;
-      width: 75px;
-      text-align: center;
-    }
-  }
+}
+main .row > div:first-child {
+  border-right: 1px solid lightgray;
+}
+main h3 {
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #fbb534;
+}
+main #tbl-customers thead tr {
+  background-color: lightgrey;
+}
+main #tbl-customers thead tr th {
+  border-bottom-color: #989898;
+}
+main #tbl-customers td {
+  vertical-align: middle;
+}
+main #tbl-customers th:first-child {
+  width: 75px;
+  text-align: center;
+}
+main #tbl-customers th:last-child {
+  position: relative;
+  width: 75px;
+  text-align: center;
 }
 
 /*===============================================================================
  * Footer
  *===============================================================================*/
-
 footer {
   text-align: center;
   position: absolute;
@@ -111,3 +92,5 @@ footer {
   padding: 10px;
   border-top: 1px solid lightgrey;
 }
+
+/*# sourceMappingURL=style.css.map */

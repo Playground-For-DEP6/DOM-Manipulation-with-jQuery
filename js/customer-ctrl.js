@@ -90,6 +90,7 @@ btnSave.click(insertCustomer);
 btnClear.click(clearFormFields);
 
 
+
 /*===============================================================================
  * Functions
  *===============================================================================*/
@@ -136,15 +137,15 @@ Customer.prototype.printDetails = function () {
 }
 
 
-// // sample data for testing purposes
-// var c1 = new Customer(1, "Dhanusha", "Kelaniya");
-// var c2 = new Customer(2, "Buddhika", "Colombo");
-// var c3 = new Customer(3, "Sandaruwan", "Kiribathgoda");
-// var c4 = new Customer(4, "Perera", "Gampaha");
-//
-// // make the customer list using an array
-// customers.push(c1, c2, c3, c4);
-//
+// sample data for testing purposes
+var c1 = new Customer(1, "Dhanusha", "Kelaniya");
+var c2 = new Customer(2, "Buddhika", "Colombo");
+var c3 = new Customer(3, "Sandaruwan", "Kiribathgoda");
+var c4 = new Customer(4, "Perera", "Gampaha");
+
+// make the customer list using an array
+customers.push(c1, c2, c3, c4);
+
 // // print all customers for testing purposes
 // for (var i = 0; i < customers.length; i++) {
 //     customers[i].printDetails();
@@ -277,7 +278,8 @@ function displayAllCustomers() {
             tBodyElement.append(tblRowElm);
         }
 
-        $("#tbl-customers>tbody").find("img").click(function () {
+        $("#tbl-customers>tbody").find("img").click(function (event) {
+
             // remove that particular element from the table
             $(this).parents("tr").remove();
 
@@ -294,15 +296,29 @@ function displayAllCustomers() {
 
             // for testing purposes
             console.log("customer list: " + customers);
+            event.stopPropagation();
         });
+
+        // console.log("------------------");
+        // console.log();
+
+        $("#tbl-customers>tbody").find("tr").click(function (event) {
+            // console.log('this row : ' + $(this));
+            // console.log($(this));
+            // console.log($(this).children("td"));
+            txtIdElement.val($(this).children("td:nth-child(1)").text());
+            txtNameElement.val($(this).children("td:nth-child(2)").text());
+            txtAddressElement.val($(this).children("td:nth-child(3)").text());
+            event.stopPropagation();
+        })
     } else {
         // add the tfoot
         $("#tbl-customers>tfoot").add();
     }
 
-
-
 }
+
+// $("pagination>page-item")
 
 
 

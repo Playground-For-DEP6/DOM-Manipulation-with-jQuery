@@ -34,6 +34,7 @@
 // customer related variables
 var customers = [];
 var newCustomerObject;
+var selectedCustomer;
 
 // form related elements
 var txtIdElement;
@@ -52,8 +53,6 @@ var txtAddressValue;
 //table related elements
 var tblCustomersElement;
 var tBodyElement;
-
-
 
 
 /*===============================================================================
@@ -88,7 +87,6 @@ btnSave.click(insertCustomer);
 
 // Bind an event handler to btn clear
 btnClear.click(clearFormFields);
-
 
 
 /*===============================================================================
@@ -156,21 +154,33 @@ function insertCustomer() {
 
     // alert("insert customer works!");
 
-    if(validate()){
-        /* validation is passed */
-
-        // create new customer object
-        newCustomerObject = createNewCustomerObject();
-
-        // add new customer object to the customers list
-        customers.push(newCustomerObject);
-        displayAllCustomers();
-        clearFormFields();
-
+    // if customer is selected by the user then, btn save should act as update button
+    if (selectedCustomer) { // selectedCustomer == null ---> condition becomes false
+        // here, update operation should be happened
+        if (validate()){
+            /* validation is passed */
+        }
     } else {
-        //validation failed
-        return;
+
+        // insert a new customer is happening here
+        if (validate()) {
+            /* validation is passed */
+
+            // create new customer object
+            newCustomerObject = createNewCustomerObject();
+
+            // add new customer object to the customers list
+            customers.push(newCustomerObject);
+            displayAllCustomers();
+            clearFormFields();
+
+        } else {
+            //validation failed
+            return;
+        }
+
     }
+
 }
 
 function updateCustomer() {
@@ -191,7 +201,7 @@ function getUserInputFromAllFormFields() {
 
 
 function createNewCustomerObject() {
-    return new Customer(txtIdValue,txtNameValue,txtAddressValue);
+    return new Customer(txtIdValue, txtNameValue, txtAddressValue);
 }
 
 function validate() {
@@ -246,9 +256,25 @@ function validate() {
 
 
 function clearFormFields() {
+    /* Clear all the input fields */
     txtIdElement.val('');
     txtNameElement.val('');
     txtAddressElement.val('');
+
+    /* Set selected customer to null */
+    selectedCustomer = null;
+
+    /* Remove selected-styles from all table rows */
+    removeAllSelectedRecordStyle();
+
+    txtIdElement.prop( "disabled", false ); //Enable customer id input field
+}
+
+/* this function will remove the highlighted-style from all the table rows  */
+function removeAllSelectedRecordStyle() {
+    for (var i = 0; i < $("#tbl-customers>tbody").children("tr").length; i++) {
+        $($("#tbl-customers>tbody").children("tr")[i]).css("background-color","");
+    }
 }
 
 function displayAllCustomers() {
@@ -285,32 +311,52 @@ function displayAllCustomers() {
 
             var cusId = $($(this).parents("tr").children()[0]).text();
             var index = customers.findIndex(function (c) {
-                return c.getId() ==  cusId;
+                return c.getId() == cusId;
             });
 
             // for testing purposes
             console.log('index is: ' + index);
 
             // delete the customer from the customer array
-            customers.splice(index,1);
+            customers.splice(index, 1);
 
             // for testing purposes
             console.log("customer list: " + customers);
             event.stopPropagation();
         });
 
-        // console.log("------------------");
-        // console.log();
 
+        /* catch the selected table row and  display in the form field */
         $("#tbl-customers>tbody").find("tr").click(function (event) {
-            // console.log('this row : ' + $(this));
-            // console.log($(this));
-            // console.log($(this).children("td"));
-            txtIdElement.val($(this).children("td:nth-child(1)").text());
-            txtNameElement.val($(this).children("td:nth-child(2)").text());
-            txtAddressElement.val($(this).children("td:nth-child(3)").text());
+
+            /* remove the highlighted-style from all the table rows  */
+            removeAllSelectedRecordStyle();
+
+            // selected recorded is styled here
+            $(this).css("background-color","rgb(252, 186, 4)");
+            // $(this).addClass('active').siblings().removeClass('active');
+
+            // create a new customer object using selected table row data
+            // selectedCustomer is taken into consideration to handle btn save button operations
+            selectedCustomer =  new Customer(
+                $(this).children("td:nth-child(1)").text(), // id is fetched from here
+                $(this).children("td:nth-child(2)").text(), // name is fetched from here
+                $(this).children("td:nth-child(3)").text()  // address is fetched from here
+            );
+
+            if (selectedCustomer){
+                txtIdElement.prop( "disabled", true ); //Disable
+            }
+
+            // set values to the form fields
+            txtIdElement.val(selectedCustomer.getId());
+            txtNameElement.val(selectedCustomer.getName());
+            txtAddressElement.val(selectedCustomer.getAddress());
+
+            // stop bubbling the event handler to parent DOM elements
             event.stopPropagation();
-        })
+        });
+
     } else {
         // add the tfoot
         $("#tbl-customers>tfoot").add();
